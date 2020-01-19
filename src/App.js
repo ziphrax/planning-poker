@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import Title from './styles/title'
+import UsernameInput from './components/username-input'
+import StandardCardSelector from './components/standard-card-selector'
+import SessionInput from './components/session-input'
+import ResultsHistogram from './components/results-histogram'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <UsernameInput />
+      <SessionInput />
+      <StandardCardSelector />
+      <ResultsHistogram />
     </div>
   );
 }
