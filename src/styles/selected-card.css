@@ -1,6 +1,7 @@
 .selected-card {
     border:0;
     margin-top: 2.5vw;
+    background:#ccc;
     padding: 2vw;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
     text-align: center;
@@ -11,5 +12,6 @@
 }
 
 .selected-card:hover {    
+    background:#ddd;    
     box-shadow: 0 0 0 1px rgba(150,150,255,0.9);
 }
