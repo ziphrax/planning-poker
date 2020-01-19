@@ -19,8 +19,16 @@ label {
   margin-right:2.5vw;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
+}
+
+h1 {
+  font-size: 10vw;
+}
+
+h2 {
+  font-size: 7vw;
 }
 
 input {

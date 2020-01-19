@@ -22,6 +22,7 @@ function App() {
       <StandardCardSelector cardValue={cardValue} setCardValue={setCardValue} />
       
       {/* <ResultsHistogram /> */}
+      <h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;</h2>
     </div>
   );
 }
