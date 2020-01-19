@@ -1,10 +1,10 @@
 .selected-card {
     margin-top: 2.5vw;
-    padding: 20vw;
+    padding: 2vw;
     border: 1px solid #333;
     background: #dedede;
     text-align: center;
-    font-size: 20vw;
+    font-size: 40vw;
     vertical-align: middle;
     width: 95.5vw;
 }
