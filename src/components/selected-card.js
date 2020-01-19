@@ -1,10 +1,10 @@
 import React from 'react'
 
-import '../styles/card.css'
+import '../styles/selected-card.css'
 
 export default function({value, setUnselected}){
     return (
-        <button className="card" onClick={()=> setUnselected(null)}>
+        <button className="selected-card" onClick={()=> setUnselected(null)}>
             {value}
         </button>
     );

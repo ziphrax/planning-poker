@@ -15,18 +15,13 @@ function App() {
   return (
     <div className="App">
       <Title />
-
-      {/* Need to refactor */}
-      { name !== "" && (<div>Name: {name}</div>)}
+      
       <UsernameInput setName={setName} />
-
-      { session !== "" && (<div>Session: {session}</div>)}
       <SessionInput session={session} setSession={setSession} />
 
       <StandardCardSelector cardValue={cardValue} setCardValue={setCardValue} />
       
-      <ResultsHistogram />
-
+      {/* <ResultsHistogram /> */}
     </div>
   );
 }
