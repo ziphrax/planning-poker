@@ -5,7 +5,7 @@ import Title from './styles/title'
 import UsernameInput from './components/username-input'
 import StandardCardSelector from './components/standard-card-selector'
 import SessionInput from './components/session-input'
-import ResultsHistogram from './components/results-histogram'
+// import ResultsHistogram from './components/results-histogram'
 
 function App() {
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <Title />
       
-      <UsernameInput setName={setName} />
+      <UsernameInput name={name} setName={setName} />
       <SessionInput session={session} setSession={setSession} />
 
       <StandardCardSelector cardValue={cardValue} setCardValue={setCardValue} />
