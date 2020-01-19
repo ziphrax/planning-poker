@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 
-import Title from './styles/title'
+import Title from './components/title'
 import UsernameInput from './components/username-input'
 import StandardCardSelector from './components/standard-card-selector'
 import SessionInput from './components/session-input'

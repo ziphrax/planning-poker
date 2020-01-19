@@ -19,6 +19,10 @@ label {
   margin-right:2.5vw;
 }
 
+h1 {
+  text-align: center;
+}
+
 input {
   width: 39vw;
 }
