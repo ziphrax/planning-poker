@@ -13,7 +13,6 @@ export default function(){
     }
     return (
         <div>
-            <div>{selected}</div>
             {selected !== null && (
                 <SelectedCard value={selected} setUnselected={setUnselected} />
             )}
