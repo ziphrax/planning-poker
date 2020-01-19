@@ -16,8 +16,8 @@ function App() {
     <div className="App">
       <Title />
       
-      <UsernameInput name={name} setName={setName} />
-      <SessionInput session={session} setSession={setSession} />
+      {/* <UsernameInput name={name} setName={setName} />
+      <SessionInput session={session} setSession={setSession} /> */}
 
       <StandardCardSelector cardValue={cardValue} setCardValue={setCardValue} />
       
