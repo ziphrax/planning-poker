@@ -1,10 +1,15 @@
 .card {
+    border:0;
     margin-top: 2.5vw;
     padding: 5vw;
     font-size: 5vw;
-    border: 1px solid #333;
-    background: #dedede;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
     text-align: center;
     vertical-align: middle;
     width: 22vw;
+    border-radius: 1vw;
+}
+
+.card:hover {    
+    box-shadow: 0 0 0 1px rgba(150,150,255,0.9);
 }
