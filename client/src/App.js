@@ -7,8 +7,8 @@ import StandardCardSelector from './components/standard-card-selector'
 import SessionInput from './components/session-input'
 import ResultsHistogram from './components/results-histogram'
 
-const labels = ["0 pts","1 pt","2 pts","3 pts", "5 pts",
-                "8 pts", "14 pts", "20 pts", "40 pts"," 100 pts",":coffee","?","&infin;"
+const labels = ["0", String.fromCharCode(189), "1", "2", "3", "5",
+                "8", "14", "20", "40"," 100",String.fromCharCode(9749),"?", String.fromCharCode(8734)
 ];
 
 const data = [1,2,3];
@@ -25,7 +25,7 @@ function App() {
       <UsernameInput name={name} setName={setName} />
       <SessionInput session={session} setSession={setSession} />
 
-      <StandardCardSelector cardValue={cardValue} setCardValue={setCardValue} />
+      <StandardCardSelector cards={labels} cardValue={cardValue} setCardValue={setCardValue} />
       
       <ResultsHistogram title="Results" 
                         labels={labels} 

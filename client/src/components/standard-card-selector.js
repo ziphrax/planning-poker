@@ -4,9 +4,7 @@ import SelectedCard from './selected-card'
 
 import '../styles/standard-card-selector.css'
 
-const cards = ["0","1","2","3","5","8","13","20","40","100",":coffee","?"];
-
-export default function(){
+export default function({cards}){
     const [selected, setSelected] = useState(null);
     const setUnselected = () => {
         setSelected(null);
