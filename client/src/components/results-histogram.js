@@ -43,7 +43,7 @@ export default function({labels, title, data, color}){
                 }
             }
         })
-    });
+    },[data]);
 
     return (
         <canvas className="results-pictograph" ref={chartRef}></canvas>

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
 
-import Title from './components/title'
-import UsernameInput from './components/username-input'
-import StandardCardSelector from './components/standard-card-selector'
-import SessionInput from './components/session-input'
-import ResultsHistogram from './components/results-histogram'
+import Title from './components/title';
+import UsernameInput from './components/username-input';
+import StandardCardSelector from './components/standard-card-selector';
+import SessionInput from './components/session-input';
+import RoomViewer from './components/room-viewer';
+import ResultsHistogram from './components/results-histogram';
+
+import * as api from './api';
 
 const labels = ["0", String.fromCharCode(189), "1", "2", "3", "5",
                 "8", "14", "20", "40"," 100",String.fromCharCode(9749),"?", String.fromCharCode(8734)
@@ -15,17 +18,54 @@ const data = [1,2,3];
 
 function App() {
   const [name, setName] = useState("");
-  const [session, setSession] = useState("");
+  const [roomId, setRoomId] = useState("");
+  const [currentRoom, setCurrentRoom] = useState(null);
   const [cardValue, setCardValue] = useState(null);
+
+  const joinRoom = (roomId) => {
+    api.GetRoom(roomId).then((response)=> {
+      setCurrentRoom(response.data);
+    });
+  }
+
+  const hostRoom = () => {
+    const data = {
+      name: name
+    };
+
+    api.PostHostRoom(data).then((response)=>{
+        setCurrentRoom(response.data);
+    });
+  }
+
+  const leaveRoom = () => {
+    setCurrentRoom(null);
+  }
+
+  const vote = (value) => {
+    const data = {
+      name: name,
+      vote: value,
+      time: new Date()
+    }
+    api.PostVote(currentRoom.roomId, data).then(response => {
+      setCurrentRoom(response.data);
+    })
+  }
 
   return (
     <div className="App">
       <Title />
       
       <UsernameInput name={name} setName={setName} />
-      <SessionInput session={session} setSession={setSession} />
 
-      <StandardCardSelector cards={labels} cardValue={cardValue} setCardValue={setCardValue} />
+      <RoomViewer />
+
+      { name && <SessionInput session={roomId} setSession={setRoomId} joinRoom={joinRoom} hostRoom={hostRoom} leaveRoom={leaveRoom} />}
+
+      <pre>{JSON.stringify(currentRoom)}</pre>
+
+      <StandardCardSelector cards={labels} cardValue={cardValue} setCardValue={setCardValue} vote={vote} />
       
       <ResultsHistogram title="Results" 
                         labels={labels} 

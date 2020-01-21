@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import '../styles/session-input.css'
 
-const DisplaySession = ({roomId, setRoomId}) => {
+const DisplaySession = ({roomId, setRoomId, leaveRoom}) => {
+    const handleLeave = (e)=>{
+        leaveRoom();
+        setRoomId("");
+    }
+    
     return (<div>
         Room Id: {roomId}
-        <button type="button" onClick={e=> setRoomId("")}>Leave</button>
+        <button type="button" onClick={handleLeave}>Leave</button>
     </div>)
 }
 
@@ -19,20 +24,21 @@ const JoinOrLeaveRoom = ({handleHost, handleJoin, setRoomId}) => {
     )
 }
 
-export default function({session, setSession}){
+export default function({session, setSession, joinRoom, hostRoom, leaveRoom}){
     const [roomId, setRoomId] = useState("");
 
     const handleJoin = () => {
         setSession(roomId);
+        joinRoom(roomId);
     }
 
     const handleHost = () => {
-
+        hostRoom();
     }
 
     return (
         <div className="session-input">
-            {session !== "" && <DisplaySession roomId={session} setRoomId={setSession} />}
+            {session !== "" && <DisplaySession roomId={session} setRoomId={setSession} leaveRoom={leaveRoom} />}
             {session === "" && <JoinOrLeaveRoom handleHost={handleHost} handleJoin={handleJoin} setRoomId={setRoomId}/>}
         </div>
     )
