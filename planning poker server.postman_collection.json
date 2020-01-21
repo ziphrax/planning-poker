@@ -10,7 +10,7 @@
 		{
 			"name": "Get Rooms",
 			"request": {
-				"url": "http://localhost:3001/",
+				"url": "http://localhost:3001/stats",
 				"method": "GET",
 				"header": [
 					{
@@ -30,7 +30,7 @@
 		{
 			"name": "Get Room",
 			"request": {
-				"url": "http://localhost:3001/KCQS",
+				"url": "http://localhost:3001/room/KCQS",
 				"method": "GET",
 				"header": [
 					{
@@ -50,7 +50,7 @@
 		{
 			"name": "Delete Room",
 			"request": {
-				"url": "http://localhost:3001/OFYN",
+				"url": "http://localhost:3001/room/OFYN",
 				"method": "DELETE",
 				"header": [
 					{
@@ -70,7 +70,7 @@
 		{
 			"name": "Delete Room history",
 			"request": {
-				"url": "http://localhost:3001/history/KCQS",
+				"url": "http://localhost:3001/room/history/KCQS",
 				"method": "DELETE",
 				"header": [
 					{
@@ -90,7 +90,7 @@
 		{
 			"name": "Host Room",
 			"request": {
-				"url": "http://localhost:3001/host",
+				"url": "http://localhost:3001/room/host",
 				"method": "POST",
 				"header": [
 					{
@@ -110,7 +110,7 @@
 		{
 			"name": "Vote",
 			"request": {
-				"url": "http://localhost:3001/vote/KCQS",
+				"url": "http://localhost:3001/vote/room/KCQS",
 				"method": "POST",
 				"header": [
 					{

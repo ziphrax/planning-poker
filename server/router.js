@@ -19,9 +19,16 @@ const generateRoomId = (length) => {
 
 const myNodeCache = new nodeCache({ stdTTL: ROOM_TTL, checkperiod: CHECK_PERIOD } );
 
+router.get('/stats', (req, res) => {
+    const rooms = myNodeCache.keys();
+    const stats = myNodeCache.getStats();
+
+    res.json({stats: stats, rooms: rooms});
+})
+
 // Really needs authentication as current solution allows anyone to edit anything :-p will need to check room owner etc before allowing clearing a key etc
 
-router.post('/host', (req, res) => {    
+router.post('/room/host', (req, res) => {    
     const newRoomId = generateRoomId(ROOM_ID_LENGTH);
     const room = {
         roomId: newRoomId,
@@ -35,7 +42,7 @@ router.post('/host', (req, res) => {
     res.json(room);
 });
 
-router.post('/vote/:roomId', (req,res)=> {
+router.post('/room/vote/:roomId', (req,res)=> {
     const room = myNodeCache.get(req.params.roomId);
 
     if(room == undefined){
@@ -52,7 +59,7 @@ router.post('/vote/:roomId', (req,res)=> {
     res.json(room);
 });
 
-router.delete('/:roomId', (req,res) => {
+router.delete('/room/:roomId', (req,res) => {
     const room = myNodeCache.get(req.params.roomId);
 
     if(room == undefined){
@@ -64,7 +71,7 @@ router.delete('/:roomId', (req,res) => {
     res.json({message:'Deleted room ' + req.params.roomId, status: status});
 });
 
-router.delete('/history/:roomId', (req,res) => {
+router.delete('/room/history/:roomId', (req,res) => {
     const room = myNodeCache.get(req.params.roomId);
 
     if(room == undefined){
@@ -78,7 +85,7 @@ router.delete('/history/:roomId', (req,res) => {
     res.json({message:'Deleted room history ' + req.params.roomId, status: status});
 });
 
-router.get('/:roomId', (req, res) => {
+router.get('/room/:roomId', (req, res) => {
     const room = myNodeCache.get(req.params.roomId);
 
     if(room === undefined){
@@ -88,11 +95,6 @@ router.get('/:roomId', (req, res) => {
     res.json(room);
 });
 
-router.get('/', (req, res) => {
-    const rooms = myNodeCache.keys();
-    const stats = myNodeCache.getStats();
 
-    res.json({stats: stats, rooms: rooms});
-})
 
 module.exports = router;
