@@ -3,7 +3,7 @@ const nodeCache = require('node-cache');
 const router = express.Router();
 
 const ROOM_ID_LENGTH = 4;
-const ROOM_TTL = 0;// 43200;
+const ROOM_TTL = 43200;
 const CHECK_PERIOD = 600;
 
 const generateRoomId = (length) => {
