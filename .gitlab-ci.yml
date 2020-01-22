@@ -12,7 +12,7 @@ stages:
 variables:
     AWS_DEFAULT_REGION: eu-west-2
     PACKAGE_NAME: planning-poker
-    REPOSITORY_URL: 362569420990.dkr.ecr.eu-west-2.amazonaws.com
+    REPOSITORY_URL: 624953578903.dkr.ecr.eu-west-2.amazonaws.com/davids-ecr-repository
 
 build:
     stage: build
