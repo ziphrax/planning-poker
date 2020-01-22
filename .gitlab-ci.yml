@@ -11,7 +11,7 @@ stages:
 
 variables:
     AWS_DEFAULT_REGION: eu-west-2
-    PACKAGE_NAME: planning-poker
+    PACKAGE_NAME: 	davids-ecr-repository
     REPOSITORY_URL: 624953578903.dkr.ecr.eu-west-2.amazonaws.com
 
 build:
@@ -21,3 +21,9 @@ build:
         - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
         - docker build -t $REPOSITORY_URL/$PACKAGE_NAME .
         - docker push $REPOSITORY_URL/$PACKAGE_NAME:latest
+
+# update ecs with the new task definition
+# webcaptioner
+# aws ecs register-task-definition --family webcaptioner-$CI_ENVIRONMENT_SLUG	 --requires-compatibilities FARGATE --cpu 256 --memory 512 --cli-input-json file://aws/webcaptioner-task-definition-$CI_ENVIRONMENT_SLUG.json --region \$AWS_REGION
+# Tell our service to use the latest version of task definition.
+# aws ecs update-service --cluster webcaptioner-$CI_ENVIRONMENT_SLUG --service webcaptioner --task-definition webcaptioner-$CI_ENVIRONMENT_SLUG --region \$AWS_REGION
