@@ -1,0 +1,288 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Cloudformation template to start up a container using farscape
+Outputs:
+  ExternalUrl:
+    Description: The url of the external load balancer
+    Value: !Join
+      - ''
+      - - http://
+        - !GetAtt 'PublicLoadBalancer.DNSName'
+Parameters:
+  ContainerCPUParam:
+    Default: 256
+    Description: Amount of CPU resource to assign to the container
+    Type: Number
+  ContainerImageUrlParam:
+    Description: Url for the container image in ECR
+    Type: String
+  ContainerMemoryParam:
+    Default: 512
+    Description: Amount of Memory resource to assign to the container
+    Type: Number
+  ContainerNameParam:
+    Description: Name for the hosted container
+    Type: String
+  ContainerPortParam:
+    Description: Port the container listens to
+    Type: Number
+  CoveaToken:
+    Description: Authorization token for the Covea mock endpoints
+    Type: String
+  DesiredTaskCountParam:
+    Default: 2
+    Description: Desired task count (due to subnets, min is 2)
+    MinValue: 2
+    Type: Number
+  IotatechToken:
+    Description: x-api-auth token for the Iotatech platform
+    Type: String
+  Subnet1CIDRBlockParam:
+    Default: 10.0.0.0/24
+    Description: Subnet CIDR Block for AZ 1
+    Type: String
+  Subnet2CIDRBlockParam:
+    Default: 10.0.1.0/24
+    Description: Subnet CIDR Block for AZ 2
+    Type: String
+  VpcCIDRBlockParam:
+    Default: 10.0.0.0/16
+    Description: VPC CIDR Block
+    Type: String
+Resources:
+  AttachGateway:
+    Properties:
+      InternetGatewayId: !Ref 'InternetGateway'
+      VpcId: !Ref 'VPC'
+    Type: AWS::EC2::VPCGatewayAttachment
+  DummyTargetGroupPublic:
+    Properties:
+      HealthCheckIntervalSeconds: 6
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      Name: drop-1
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 2
+      VpcId: !Ref 'VPC'
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+  ECSRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ecs.amazonaws.com
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - ec2:AttachNetworkInterface
+                  - ec2:CreateNetworkInterface
+                  - ec2:CreateNetworkInterfacePermission
+                  - ec2:DeleteNetworkInterface
+                  - ec2:DeleteNetworkInterfacePermission
+                  - ec2:Describe*
+                  - ec2:DetachNetworkInterface
+                  - elasticloadbalancing:DeregisterInstancesFromLoadBalancer
+                  - elasticloadbalancing:DeregisterTargets
+                  - elasticloadbalancing:Describe*
+                  - elasticloadbalancing:RegisterInstancesWithLoadBalancer
+                  - elasticloadbalancing:RegisterTargets
+                Effect: Allow
+                Resource:
+                  - '*'
+          PolicyName: ecs-service
+    Type: AWS::IAM::Role
+  ECSService:
+    DependsOn: LoadBalancerRule
+    Properties:
+      Cluster: !Ref 'ECSCluster'
+      DesiredCount: !Ref 'DesiredTaskCountParam'
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: !Ref 'ContainerNameParam'
+          ContainerPort: !Ref 'ContainerPortParam'
+          TargetGroupArn: !Ref 'FargateTargetGroup'
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref 'FargateContainerSecurityGroup'
+          Subnets:
+            - !Ref 'Subnet1'
+            - !Ref 'Subnet2'
+      TaskDefinition: !Ref 'TaskDefinition'
+    Type: AWS::ECS::Service
+  ECSTaskExecutionRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - ecr:GetAuthorizationToken
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Effect: Allow
+                Resource:
+                  - '*'
+          PolicyName: AmazonECSTaskExecutionRolePolicy
+    Type: AWS::IAM::Role
+  EcsSecurityGroupIngressFromPublicALB:
+    Properties:
+      Description: Ingress from the public ALB
+      GroupId: !Ref 'FargateContainerSecurityGroup'
+      IpProtocol: '-1'
+      SourceSecurityGroupId: !Ref 'PublicLoadBalancerSG'
+    Type: AWS::EC2::SecurityGroupIngress
+  EcsSecurityGroupIngressFromSelf:
+    Properties:
+      Description: Ingress from other containers in the same security group
+      GroupId: !Ref 'FargateContainerSecurityGroup'
+      IpProtocol: '-1'
+      SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
+    Type: AWS::EC2::SecurityGroupIngress
+  FargateContainerSecurityGroup:
+    Properties:
+      GroupDescription: Access to the fargate containers
+      VpcId: !Ref 'VPC'
+    Type: AWS::EC2::SecurityGroup
+  FargateTargetGroup:
+    Properties:
+      HealthCheckIntervalSeconds: 6
+      HealthCheckPath: /health-check
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      Port: !Ref 'ContainerPortParam'
+      Protocol: HTTP
+      TargetType: ip
+      UnhealthyThresholdCount: 2
+      VpcId: !Ref 'VPC'
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+  LoadBalancerRule:
+    Properties:
+      Actions:
+        - TargetGroupArn: !Ref 'FargateTargetGroup'
+          Type: forward
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - '*'
+      ListenerArn: !Ref 'PublicLoadBalancerListener'
+      Priority: '1'
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+  PublicLoadBalancer:
+    Properties:
+      Scheme: internet-facing
+      SecurityGroups:
+        - !Ref 'PublicLoadBalancerSG'
+      Subnets:
+        - !Ref 'Subnet1'
+        - !Ref 'Subnet2'
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  PublicLoadBalancerListener:
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref 'DummyTargetGroupPublic'
+          Type: forward
+      LoadBalancerArn: !Ref 'PublicLoadBalancer'
+      Port: 80
+      Protocol: HTTP
+    Type: AWS::ElasticLoadBalancingV2::Listener
+  PublicLoadBalancerSG:
+    Properties:
+      GroupDescription: Access to the public facing load balancer
+      SecurityGroupIngress:
+        - CidrIp: '0.0.0.0/0'
+          IpProtocol: '-1'
+      VpcId: !Ref 'VPC'
+    Type: AWS::EC2::SecurityGroup
+  Route:
+    DependsOn: AttachGateway
+    Properties:
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'InternetGateway'
+      RouteTableId: !Ref 'RouteTable'
+    Type: AWS::EC2::Route
+  RouteTable:
+    Properties:
+      VpcId: !Ref 'VPC'
+    Type: AWS::EC2::RouteTable
+  Subnet1:
+    Properties:
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+          Ref: AWS::Region
+      CidrBlock: !Ref 'Subnet1CIDRBlockParam'
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref 'VPC'
+    Type: AWS::EC2::Subnet
+  Subnet2:
+    Properties:
+      AvailabilityZone: !Select
+        - 1
+        - !GetAZs
+          Ref: AWS::Region
+      CidrBlock: !Ref 'Subnet2CIDRBlockParam'
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref 'VPC'
+    Type: AWS::EC2::Subnet
+  SubnetRouteTableAssociation1:
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      SubnetId: !Ref 'Subnet1'
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  SubnetRouteTableAssociation2:
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      SubnetId: !Ref 'Subnet2'
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  TaskDefinition:
+    Properties:
+      ContainerDefinitions:
+        - Cpu: !Ref 'ContainerCPUParam'
+          Environment:
+            - Name: IOTATECH_TOKEN
+              Value: !Ref 'IotatechToken'
+            - Name: COVEA_TOKEN
+              Value: !Ref 'CoveaToken'
+          Essential: 'true'
+          Image: !Ref 'ContainerImageUrlParam'
+          Memory: !Ref 'ContainerMemoryParam'
+          Name: !Ref 'ContainerNameParam'
+          PortMappings:
+            - ContainerPort: !Ref 'ContainerPortParam'
+              HostPort: !Ref 'ContainerPortParam'
+      Cpu: !Ref 'ContainerCPUParam'
+      ExecutionRoleArn: !Ref 'ECSTaskExecutionRole'
+      Memory: !Ref 'ContainerMemoryParam'
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+    Type: AWS::ECS::TaskDefinition
+  VPC:
+    Properties:
+      CidrBlock: !Ref 'VpcCIDRBlockParam'
+      EnableDnsHostnames: 'true'
+      EnableDnsSupport: 'true'
+    Type: AWS::EC2::VPC
+

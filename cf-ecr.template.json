@@ -1,0 +1,105 @@
+{
+    "Description": "AWS CloudFormation Middleman Server Template",
+    "Outputs": {
+        "AccessKey": {
+            "Description": "AWSAccessKeyId of new user",
+            "Value": {
+                "Ref": "CiKeys"
+            }
+        },
+        "SecretKey": {
+            "Description": "AWSSecretKey of new user",
+            "Value": {
+                "Fn::GetAtt": [
+                    "CiKeys",
+                    "SecretAccessKey"
+                ]
+            }
+        }
+    },
+    "Resources": {
+        "CiAdminGroup": {
+            "Type": "AWS::IAM::Group"
+        },
+        "CiAdmins": {
+            "Properties": {
+                "GroupName": {
+                    "Ref": "CiAdminGroup"
+                },
+                "Users": [
+                    {
+                        "Ref": "CiUser"
+                    }
+                ]
+            },
+            "Type": "AWS::IAM::UserToGroupAddition"
+        },
+        "CiKeys": {
+            "Properties": {
+                "Status": "Active",
+                "UserName": {
+                    "Ref": "CiUser"
+                }
+            },
+            "Type": "AWS::IAM::AccessKey"
+        },
+        "CiUser": {
+            "Properties": {
+                "LoginProfile": {
+                    "Password": "Compl3xPa55word!"
+                }
+            },
+            "Type": "AWS::IAM::User"
+        },
+        "CiUserPolicies": {
+            "Properties": {
+                "Groups": [
+                    {
+                        "Ref": "CiAdminGroup"
+                    }
+                ],
+                "PolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "ecr:*",
+                                "cloudtrail:LookupEvents",
+                                "autoscaling:Describe*",
+                                "autoscaling:UpdateAutoScalingGroup",
+                                "cloudformation:CreateStack",
+                                "cloudformation:DeleteStack",
+                                "cloudformation:DescribeStack*",
+                                "cloudformation:UpdateStack",
+                                "cloudwatch:GetMetricStatistics",
+                                "ec2:Describe*",
+                                "elasticloadbalancing:*",
+                                "ecs:*",
+                                "events:DescribeRule",
+                                "events:DeleteRule",
+                                "events:ListRuleNamesByTarget",
+                                "events:ListTargetsByRule",
+                                "events:PutRule",
+                                "events:PutTargets",
+                                "events:RemoveTargets",
+                                "iam:ListInstanceProfiles",
+                                "iam:ListRoles",
+                                "iam:PassRole"
+                            ],
+                            "Effect": "Allow",
+                            "Resource": "*"
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                },
+                "PolicyName": "CiUsers"
+            },
+            "Type": "AWS::IAM::Policy"
+        },
+        "EcrRepository": {
+            "Properties": {
+                "RepositoryName": "davids-ecr-repository"
+            },
+            "Type": "AWS::ECR::Repository"
+        }
+    }
+}
