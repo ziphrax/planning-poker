@@ -25,6 +25,6 @@ RUN yarn global add nodemon
 
 COPY ./server .
 
-EXPOSE 3000
+EXPOSE 80
 
 ENTRYPOINT [ "nodemon", "index.js" ]
