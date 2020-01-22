@@ -78,7 +78,7 @@ function App() {
 
   const hostRoom = () => {
     const data = {
-      name: name
+      host: name
     };
 
     api.PostHostRoom(data).then((response)=>{
