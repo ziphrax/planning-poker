@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 const DisplayName = ({name, setName}) => {
     return (
-        <div>Name: {name}
+        <div>
+            <label>Name: {name}</label>
             <button type="button" onClick={e=> setName("")}>Clear Name</button>
         </div>
 )}
