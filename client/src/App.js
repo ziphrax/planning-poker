@@ -11,7 +11,7 @@ import ResultsHistogram from './components/results-histogram';
 import * as api from './api';
 
 const labels = ["0", String.fromCharCode(189), "1", "2", "3", "5",
-                "8", "14", "20", "40"," 100",String.fromCharCode(9749),"?", String.fromCharCode(8734)
+                "8", "14", "20", "40"," 100", String.fromCharCode(9749),"?", String.fromCharCode(8734)
 ];
 
 // Example Room response data
@@ -60,7 +60,7 @@ function App() {
   const [cardValue, setCardValue] = useState(null);
 
   useEffect(()=>{
-    setInterval(()=>{
+    window.interval = setInterval(()=>{
       if(currentRoom != null) {
         api.GetRoom(currentRoom.roomId)
           .then(response => {
@@ -89,6 +89,8 @@ function App() {
 
   const leaveRoom = () => {
     setCurrentRoom(null);
+    setRoomId("");
+    clearInterval(window.interval);
   }
 
   const vote = (value) => {
