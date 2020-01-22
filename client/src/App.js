@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import Title from './components/title';
@@ -13,8 +13,6 @@ import * as api from './api';
 const labels = ["0", String.fromCharCode(189), "1", "2", "3", "5",
                 "8", "14", "20", "40"," 100",String.fromCharCode(9749),"?", String.fromCharCode(8734)
 ];
-
-const data = [1,2,3];
 
 // Example Room response data
 // {
@@ -45,6 +43,7 @@ const roomToData = (labels, room) => {
       if(room.votes[key].vote === value){
         count++;
       }
+      return true;
     });
 
     return count;
@@ -60,10 +59,21 @@ function App() {
   const [currentRoom, setCurrentRoom] = useState(null);
   const [cardValue, setCardValue] = useState(null);
 
+  useEffect(()=>{
+    setInterval(()=>{
+      if(currentRoom != null) {
+        api.GetRoom(currentRoom.roomId)
+          .then(response => {
+            setCurrentRoom(response.data);
+          }).catch(console.log);
+      }
+    }, 5000);
+  },[roomId])
+
   const joinRoom = (roomId) => {
-    api.GetRoom(roomId).then((response)=> {
+    api.GetRoom(roomId).then((response)=> {      
       setCurrentRoom(response.data);
-    });
+    }).catch(console.log);
   }
 
   const hostRoom = () => {
@@ -73,7 +83,8 @@ function App() {
 
     api.PostHostRoom(data).then((response)=>{
         setCurrentRoom(response.data);
-    });
+        setRoomId(response.data.roomId);
+      }).catch(console.log);
   }
 
   const leaveRoom = () => {
@@ -88,7 +99,7 @@ function App() {
     }
     api.PostVote(currentRoom.roomId, data).then(response => {
       setCurrentRoom(response.data);
-    })
+    }).catch(console.log);
   }
 
   return (
@@ -97,7 +108,7 @@ function App() {
       
       <UsernameInput name={name} setName={setName} />
 
-      { name && <RoomViewer />}
+      {/* { name && <RoomViewer />} */}
 
       { name && 
         <SessionInput session={roomId} 
@@ -106,13 +117,13 @@ function App() {
                       hostRoom={hostRoom} 
                       leaveRoom={leaveRoom} />}
 
-      { currentRoom &&  
+      { currentRoom != null &&  
         <StandardCardSelector cards={labels} 
                               cardValue={cardValue} 
                               setCardValue={setCardValue} 
                               vote={vote} /> }
       
-      { currentRoom && 
+      { currentRoom != null && 
         <ResultsHistogram title="Results" 
                           labels={labels} 
                           data={roomToData(labels, currentRoom)} 

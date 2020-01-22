@@ -3,23 +3,10 @@ import Chart from 'chart.js'
 
 import '../styles/results-histogram.css'
 
-
-// const data=
-//     [{
-//         x: xaxis,
-//         y: [0,0,4,2,3,0,0,0,0,0,0,0],
-//         type: 'bar'
-//     }]
-
-
-// const layout={
-//     width:"100%",
-//     height:"250px",
-//     title:"Results"
-// }
-
 export default function({labels, title, data, color}){
     const chartRef = createRef();
+
+    const max = Math.max(...data);
 
     useEffect(() => {
         new Chart(chartRef.current,{
@@ -33,13 +20,18 @@ export default function({labels, title, data, color}){
                 }]
             },
             options: {
+                beginAtZero:true,
+                precision:0,
+                stepSize:1,
+                maxTicksLimit:10,
+                animation:false,
                 responsive: true,
                 legend: {
                     position: 'top',
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Bar Chart'
+                    text: 'Histogram'
                 }
             }
         })
