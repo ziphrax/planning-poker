@@ -4,11 +4,11 @@ WORKDIR /app/client
 
 COPY ./client/package*.json ./
 
-RUN npm install
+RUN yarn install
 
 COPY ./client .
 
-RUN npm build
+RUN yarn build
 
 # Server time
 
@@ -20,8 +20,8 @@ COPY --from=build-client-stage /app/client/build ./public
 
 COPY ./server/package*.json ./
 
-RUN npm install
-RUN npm install -g nodemon
+RUN yarn install
+RUN yarn global add nodemon
 
 COPY ./server .
 

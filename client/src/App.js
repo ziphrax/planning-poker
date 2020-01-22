@@ -129,7 +129,7 @@ function App() {
                           data={roomToData(labels, currentRoom)} 
                           color="#70CAD1" />}
 
-      <h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;</h2>
+      <h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades;</h2>
     
       {/* <pre>{JSON.stringify(currentRoom)}</pre> */}
 
