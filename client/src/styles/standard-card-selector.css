@@ -1,4 +1,6 @@
 .standard-card-selector {
+    height:39vh;
+    padding-top:2vh;
     width:100%;
     align-items: center;
     display: flex;

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import '../styles/username-input.css'
 
 const DisplayName = ({name, setName}) => {
     return (
         <div>
             <label>Name: {name}</label>
-            <button type="button" onClick={e=> setName("")}>Clear Name</button>
+            <button className="button-primary" type="button" onClick={e=> setName("")}>Clear Name</button>
         </div>
 )}
 
@@ -12,8 +13,10 @@ const NameForm = ({handleClickEvent, setUsername}) => {
     return (
         <div>
             <label>Your Name</label>
-            <input type="text" id="name" onChange={ e => setUsername(e.target.value) }/>
-            <button type="text" onClick={handleClickEvent}>Set Name</button>
+            <input  className="input-left"
+                    type="text" id="name" onChange={ e => setUsername(e.target.value) }/>
+            <button className="button-right button-primary"
+                    type="text" onClick={handleClickEvent}>Set Name</button>
         </div>
     )
 }
@@ -27,7 +30,7 @@ export default function({name, setName}) {
     };
 
     return (
-        <div>
+        <div className="username-input">
             { name !== '' && <DisplayName name={name} setName={setName} />}
             { name === '' && <NameForm handleClickEvent={handleClickEvent} setUsername={setUsername} />}
         </div>

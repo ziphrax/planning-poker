@@ -18,7 +18,9 @@ export default function({cards, vote}){
     return (
         <div>
             {selected !== null && (
-                <SelectedCard value={selected} setUnselected={setUnselected} />
+                <div className="standard-card-selector">
+                    <SelectedCard value={selected} setUnselected={setUnselected} />
+                </div>
             )}
             {selected === null && (
                 <div className="standard-card-selector">

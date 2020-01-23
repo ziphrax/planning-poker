@@ -9,7 +9,7 @@ const DisplaySession = ({roomId, setRoomId, leaveRoom}) => {
     
     return (<div>
         <label>Room Id: {roomId}</label>
-        <button type="button" onClick={handleLeave}>Leave</button>
+        <button className="button-primary" type="button" onClick={handleLeave}>Leave</button>
     </div>)
 }
 
@@ -17,9 +17,10 @@ const JoinOrLeaveRoom = ({handleHost, handleJoin, setRoomId}) => {
     return (
         <div>
             <label>Room ID</label>
-            <input type="text" onChange={e => setRoomId(e.target.value)} />            
-            <button type="button" onClick={handleJoin}>Join</button>
-            <button type="button" onClick={handleHost}>Host</button>
+            <button className="button-primary button-left" type="button" onClick={handleHost}>Host</button>
+            <input className="input-center" type="text" onChange={e => setRoomId(e.target.value)} />            
+            <button className="button-primary button-right" type="button" onClick={handleJoin}>Join</button>
+            
         </div>
     )
 }

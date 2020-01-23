@@ -105,36 +105,38 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App">      
       <Title />
+
+      <div className="Main">
       
-      <UsernameInput name={name} setName={setName} />
+        <UsernameInput name={name} setName={setName} />
 
-      {/* { name && <RoomViewer />} */}
+        {/* { name && <RoomViewer />} */}
 
-      { name && 
-        <SessionInput session={roomId} 
-                      setSession={setRoomId} 
-                      joinRoom={joinRoom} 
-                      hostRoom={hostRoom} 
-                      leaveRoom={leaveRoom} />}
+        { name && 
+          <SessionInput session={roomId} 
+                        setSession={setRoomId} 
+                        joinRoom={joinRoom} 
+                        hostRoom={hostRoom} 
+                        leaveRoom={leaveRoom} />}
 
-      { currentRoom != null &&  
-        <StandardCardSelector cards={labels} 
-                              cardValue={cardValue} 
-                              setCardValue={setCardValue} 
-                              vote={vote} /> }
-      
-      { currentRoom != null && 
-        <ResultsHistogram title="Results" 
-                          labels={labels} 
-                          data={roomToData(labels, currentRoom)} 
-                          color="#70CAD1" />}
-
-      <h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades;</h2>
-    
-      {/* <pre>{JSON.stringify(currentRoom)}</pre> */}
-
+        { currentRoom != null &&  
+          <StandardCardSelector cards={labels} 
+                                cardValue={cardValue} 
+                                setCardValue={setCardValue} 
+                                vote={vote} /> }
+        
+        { currentRoom != null && 
+          <ResultsHistogram title="Results" 
+                            labels={labels} 
+                            data={roomToData(labels, currentRoom)} 
+                            color="#33658A" />}
+      </div>
+      <div className="Footer">
+        <h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades;</h2>        
+        {/* <pre>{JSON.stringify(currentRoom)}</pre> */}
+      </div>
     </div>
   );
 }

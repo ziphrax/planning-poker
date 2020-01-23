@@ -1,0 +1,19 @@
+.App {        
+    height:100vh;
+    width:100vw;
+    background: rgb(227,227,227);
+    background: linear-gradient(180deg, rgba(227,227,227,1) 0%, rgba(149,149,149,1) 100%);
+}
+
+.Main {
+    height:85vh;
+    padding-left:2vw;
+    padding-right:2vw;
+    background: rgb(227,227,227);
+    background: linear-gradient(180deg, rgba(227,227,227,1) 0%, rgba(173,196,213,1) 100%);
+}
+
+.Footer {
+    background: rgb(227,227,227);
+    height:15vh;
+}
