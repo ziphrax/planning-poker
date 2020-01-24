@@ -3,10 +3,8 @@ import Chart from 'chart.js'
 
 import '../styles/results-histogram.css'
 
-export default function({labels, title, data, color}){
+export default function({labels, title, data, color, backgroundColor}){
     const chartRef = createRef();
-
-    const max = Math.max(...data);
 
     useEffect(() => {
         new Chart(chartRef.current,{
@@ -37,7 +35,11 @@ export default function({labels, title, data, color}){
         })
     },[data]);
 
+    const backGroundStyle = {
+        backgroundColor:backgroundColor
+    }
+
     return (
-        <canvas className="results-pictograph" ref={chartRef}></canvas>
+        <canvas className="results-pictograph" ref={chartRef} style={backGroundStyle}></canvas>
     )
 }

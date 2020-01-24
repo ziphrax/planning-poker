@@ -14,6 +14,11 @@
 }
 
 .Footer {
-    background: rgb(227,227,227);
-    height:15vh;
+    background: #F6AE2D;
+    color:#fafafa;
+    height:15vh;    
+}
+
+.Footer > h2 {
+    font-size:6vw;
 }

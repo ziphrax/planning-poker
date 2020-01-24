@@ -6,23 +6,29 @@ import UsernameInput from './components/username-input';
 import StandardCardSelector from './components/standard-card-selector';
 import SessionInput from './components/session-input';
 import ResultsHistogram from './components/results-histogram';
+import SuiteLine from './components/suite-line';
 
 import * as api from './api';
 
-const labels = ["0", String.fromCharCode(189), "1", "2", "3", "5",
-                "8", "14", "20", "40"," 100", String.fromCharCode(9749),"?", String.fromCharCode(8734)
+const labels = [
+  "0", String.fromCharCode(189), 
+  "1", "2", "3", "5",
+  "8", "14", "20", "40"," 100", 
+  String.fromCharCode(9749),"?", String.fromCharCode(8734)
 ];
 
 const roomToData = (labels, room) => {
   let data = labels.map(value => {
     let count = 0;
 
-    Object.keys(room.votes).map(key => { 
-      if(room.votes[key].vote === value){
-        count++;
-      }
-      return true;
-    });
+    if(room.votes){
+      Object.keys(room.votes).map(key => { 
+        if(room.votes[key].vote === value){
+          count++;
+        }
+        return true;
+      });
+    }
 
     return count;
   });
@@ -43,7 +49,10 @@ function App() {
         api.GetRoom(currentRoom.roomId)
           .then(response => {
             setCurrentRoom(response.data);
-          }).catch(console.log);
+          }).catch(err=> {
+            console.log(err);
+            setCurrentRoom({});
+          });
       }
     }, 5000);
   },[roomId])
@@ -51,7 +60,10 @@ function App() {
   const joinRoom = (roomId) => {
     api.GetRoom(roomId).then((response)=> {      
       setCurrentRoom(response.data);
-    }).catch(console.log);
+    }).catch(err=> {
+      console.log(err);
+      setCurrentRoom({});
+    });
   }
 
   const hostRoom = () => {
@@ -62,7 +74,11 @@ function App() {
     api.PostHostRoom(data).then((response)=>{
         setCurrentRoom(response.data);
         setRoomId(response.data.roomId);
-      }).catch(console.log);
+      }).catch(err=> {
+        console.log(err);
+        setCurrentRoom({});
+        setRoomId("No room at the in");
+      });
   }
 
   const leaveRoom = () => {
@@ -79,7 +95,10 @@ function App() {
     }
     api.PostVote(currentRoom.roomId, data).then(response => {
       setCurrentRoom(response.data);
-    }).catch(console.log);
+    }).catch(err=> {
+      console.log(err);
+      setCurrentRoom({});
+    });
   }
 
   return (
@@ -109,11 +128,11 @@ function App() {
           <ResultsHistogram title="Results" 
                             labels={labels} 
                             data={roomToData(labels, currentRoom)} 
-                            color="#33658A" />}
+                            color="#33658A" 
+                            backgroundColor="#fafafa"/>}
       </div>
       <div className="Footer">
-        <h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades;</h2>        
-        {/* <pre>{JSON.stringify(currentRoom)}</pre> */}
+        <SuiteLine />
       </div>
     </div>
   );
