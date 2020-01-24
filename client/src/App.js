@@ -5,7 +5,6 @@ import Title from './components/title';
 import UsernameInput from './components/username-input';
 import StandardCardSelector from './components/standard-card-selector';
 import SessionInput from './components/session-input';
-import RoomViewer from './components/room-viewer';
 import ResultsHistogram from './components/results-histogram';
 
 import * as api from './api';
@@ -13,27 +12,6 @@ import * as api from './api';
 const labels = ["0", String.fromCharCode(189), "1", "2", "3", "5",
                 "8", "14", "20", "40"," 100", String.fromCharCode(9749),"?", String.fromCharCode(8734)
 ];
-
-// Example Room response data
-// {
-//   "roomId": "KIRT",
-//   "host": "dave",
-//   "votes": {
-//       "me :-D": {
-//           "name": "me :-D",
-//           "vote": "3",
-//           "timestamp": "0000-00-00 00:00:00.000"
-//       }
-//   },
-//   "history": [
-//       {
-//           "name": "me :-D",
-//           "vote": "3",
-//           "timestamp": "0000-00-00 00:00:00.000"
-//       }
-//   ],
-//   "success": true
-// }
 
 const roomToData = (labels, room) => {
   let data = labels.map(value => {
