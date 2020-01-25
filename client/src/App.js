@@ -77,7 +77,7 @@ function App() {
       }).catch(err=> {
         console.log(err);
         setCurrentRoom({});
-        setRoomId("No room at the in");
+        setRoomId("No room at the inn");
       });
   }
 

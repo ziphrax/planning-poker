@@ -11,14 +11,15 @@
     font-size: 40vw;
     vertical-align: middle;
     width: 95.5vw;
-    height: 37.5vh;
+    height: 38.5vh;
     border-radius: 1vw;
 }
 
 .selected-card:hover {    
     background:#ddd;    
     color:#333;
-    -webkit-box-shadow: 0 0 0 1px rgba(150,150,255,0.9);
-    -moz-box-shadow: 0 0 0 1px rgba(150,150,255,0.9);
-    box-shadow: 0 0 0 1px rgba(150,150,255,0.9);
+    -webkit-box-shadow: 0 0 0 1px #33658A;
+    -moz-box-shadow: 0 0 0 1px #33658A;
+    box-shadow: 0 0 0 1px #33658A;
+    cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, isValidElement } from 'react'
 import '../styles/session-input.css'
 
 const DisplaySession = ({roomId, setRoomId, leaveRoom}) => {
@@ -7,20 +7,25 @@ const DisplaySession = ({roomId, setRoomId, leaveRoom}) => {
         setRoomId("");
     }
     
-    return (<div>
-        <label>Room Id: {roomId}</label>
-        <button className="button-primary" type="button" onClick={handleLeave}>Leave</button>
-    </div>)
+    return (
+        <div className="padding-left-2">
+            <label>Room: {roomId}</label>
+            <button className="button-primary" type="button" onClick={handleLeave}>Leave</button>
+        </div>
+    );
 }
 
 const JoinOrLeaveRoom = ({handleHost, handleJoin, setRoomId}) => {
     return (
-        <div>
-            <label>Room ID</label>
-            <button className="button-primary button-left" type="button" onClick={handleHost}>Host</button>
-            <input className="input-center" type="text" onChange={e => setRoomId(e.target.value)} />            
-            <button className="button-primary button-right" type="button" onClick={handleJoin}>Join</button>
-            
+        <div className="session-form">
+            <div className="session-form-component">
+                <button className="button-primary" type="button" onClick={handleHost}>Host</button>
+            </div>
+            <div className="session-form-component">Or</div>
+            <div className="session-form-component">
+                <input className="" type="text" onChange={e => setRoomId(e.target.value)} />            
+                <button className="button-primary" type="button" onClick={handleJoin}>Join</button>
+            </div>
         </div>
     )
 }

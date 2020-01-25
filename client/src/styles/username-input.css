@@ -1,3 +1,32 @@
 .username-input {
-    padding-top:2vh;    
+    display: inline-block;
+    padding-top: 2.5vh;
+}
+.display-name{
+    text-align: center;
+}
+.display-name:hover {
+    cursor: pointer;
+}
+
+.name-form {
+    display: flex;
+    width:96vw;
+    height:50vh;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size:10vw;
+}
+.name-form input,
+.name-form button{
+    width: 96vw;
+    font-size:10vw;
+    text-align: center;
+}
+.name-form input {
+    width: 94vw;
+}
+.name-form-component{
+    margin-bottom:5vh;
 }

@@ -3,20 +3,22 @@ import '../styles/username-input.css'
 
 const DisplayName = ({name, setName}) => {
     return (
-        <div>
-            <label>Name: {name}</label>
-            <button className="button-primary" type="button" onClick={e=> setName("")}>Clear Name</button>
-        </div>
+        <button type="button" className="button-primary" onClick={e=> setName("")} tooltip="Change Name">
+            Change Your Name
+        </button>
 )}
 
 const NameForm = ({handleClickEvent, setUsername}) => {
     return (
-        <div>
-            <label>Your Name</label>
-            <input  className="input-left"
-                    type="text" id="name" onChange={ e => setUsername(e.target.value) }/>
-            <button className="button-right button-primary"
+        <div className="name-form">
+            <div className="name-form-component">Your Name</div>
+            <div className="name-form-component">
+                <input type="text" id="name" onChange={ e => setUsername(e.target.value) }/>
+            </div>
+            <div className="name-form-component">
+                <button className="button-primary"
                     type="text" onClick={handleClickEvent}>Set Name</button>
+            </div>
         </div>
     )
 }

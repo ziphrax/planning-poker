@@ -1,3 +1,31 @@
 .session-input {    
-    padding-top:2vh;    
+    display: inline-block;
+    padding-top: 2.5vh;
+}
+
+.padding-left-2 {
+    padding-left: 2vw;
+}
+
+.session-form {
+    display: flex;    
+    width: 96vw;
+    height:50vh;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size:10vw;
+}
+
+.session-form input,.session-form button{
+    width: 96vw;
+    font-size:10vw;
+    text-align: center;
+}
+
+.session-form input {
+    width: 94vw;
+}
+.session-form-component{
+    margin-bottom:5vh;
 }
