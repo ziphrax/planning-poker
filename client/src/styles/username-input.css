@@ -23,10 +23,15 @@
     width: 96vw;
     font-size:10vw;
     text-align: center;
+    
 }
 .name-form input {
     width: 94vw;
 }
 .name-form-component{
     margin-bottom:5vh;
+}
+.name-form-component label {
+    width:94vw;
+    display:box;
 }

@@ -11,7 +11,9 @@ const DisplayName = ({name, setName}) => {
 const NameForm = ({handleClickEvent, setUsername}) => {
     return (
         <div className="name-form">
-            <div className="name-form-component">Your Name</div>
+            <div className="name-form-component">
+                <label>Your Name</label>
+            </div>
             <div className="name-form-component">
                 <input type="text" id="name" onChange={ e => setUsername(e.target.value) }/>
             </div>

@@ -36,20 +36,27 @@ h2 {
 
 input {
   width: 39vw;
-}
-
-input, button{
   border:0;
   padding:1vw;
-  -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-  border-radius: 1vw;
+  border-radius: 30vw;
+  background: #e4e4e4;
+  box-shadow: inset 20px 20px 60px #c2c2c2, 
+              inset -20px -20px 60px #ffffff;
+}
+
+button {
+  border:0;
+  padding:1vw;
+  background: #e4e4e4;
+  box-shadow:  20px 20px 60px #c2c2c2, 
+              -20px -20px 60px #ffffff;
+  border-radius: 30vw;
 }
 
 .button-primary {
-  background:#33658A;
-  color:#fafafa;
+  background: #e4e4e4;
+  box-shadow:  20px 20px 60px #c2c2c2, 
+              -20px -20px 60px #ffffff;
 }
 
 input.input-right, button.button-right{

@@ -23,7 +23,9 @@ const JoinOrLeaveRoom = ({handleHost, handleJoin, setRoomId}) => {
             </div>
             <div className="session-form-component">Or</div>
             <div className="session-form-component">
-                <input className="" type="text" onChange={e => setRoomId(e.target.value)} />            
+                <input className="" type="text" onChange={e => setRoomId(e.target.value)} />  
+            </div>
+            <div className="session-form-component">          
                 <button className="button-primary" type="button" onClick={handleJoin}>Join</button>
             </div>
         </div>
