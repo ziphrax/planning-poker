@@ -8,8 +8,7 @@ const DisplaySession = ({roomId, setRoomId, leaveRoom}) => {
     }
     
     return (
-        <div className="padding-left-2">
-            <label>Room: {roomId}</label>
+        <div className="padding-left-2">            
             <button className="button-primary" type="button" onClick={handleLeave}>Leave</button>
         </div>
     );
@@ -45,9 +44,12 @@ export default function({session, setSession, joinRoom, hostRoom, leaveRoom}){
     }
 
     return (
-        <div className="session-input">
-            {session !== "" && <DisplaySession roomId={session} setRoomId={setSession} leaveRoom={leaveRoom} />}
-            {session === "" && <JoinOrLeaveRoom handleHost={handleHost} handleJoin={handleJoin} setRoomId={setRoomId}/>}
-        </div>
+        <React.Fragment>
+            <div className="session-input">
+                {session !== "" && <DisplaySession roomId={session} setRoomId={setSession} leaveRoom={leaveRoom} />}
+                {session === "" && <JoinOrLeaveRoom handleHost={handleHost} handleJoin={handleJoin} setRoomId={setRoomId}/>}
+            </div>
+            {session !== "" &&  <div>Room: {session}</div>}
+        </React.Fragment>
     )
 }

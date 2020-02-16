@@ -5,13 +5,9 @@
 }
 
 .Main {
-    height:85vh;
+    height:83vh;
     padding-left:2vw;
     padding-right:2vw;
-}
-
-.Footer {
-    height:15vh;    
 }
 
 .Footer > h2 {
