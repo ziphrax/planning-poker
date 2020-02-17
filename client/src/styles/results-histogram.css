@@ -1,8 +1,21 @@
-.results-pictograph {
-    margin-top:4vh;    
-    border:1px solid #333;
-    background: #dedede;
-    width:95vw;
+.results-histogram-container {
+    margin-top:4vh;
+    width:94vw;
     text-align: center;
     vertical-align: middle;
+    border-radius: 30vw;
+    background: #e4e4e4;
+    box-shadow:  20px 20px 60px #c2c2c2, 
+              -20px -20px 60px #ffffff;
+}
+
+.results-histogram {
+    margin-top:4vh;
+    width:94vw;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 30vw;
+    background: #e4e4e4;
+    box-shadow: inset 20px 20px 60px #c2c2c2, 
+                inset -20px -20px 60px #ffffff;
 }

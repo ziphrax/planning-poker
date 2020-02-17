@@ -1,25 +1,22 @@
 .selected-card {
     border:0;
     margin-top: 2.5vw;
-    background:#33658A;
-    color:#fafafa;
+    color:#333;
     padding: 2vw;
-    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    background: #e4e4e4;
+    box-shadow:  20px 20px 60px #c2c2c2, 
+              -20px -20px 60px #ffffff;
     text-align: center;
     font-size: 40vw;
     vertical-align: middle;
     width: 95.5vw;
     height: 38.5vh;
-    border-radius: 1vw;
+    border-radius: 30vw;
 }
 
 .selected-card:hover {    
-    background:#ddd;    
     color:#333;
-    -webkit-box-shadow: 0 0 0 1px #33658A;
-    -moz-box-shadow: 0 0 0 1px #33658A;
-    box-shadow: 0 0 0 1px #33658A;
+    box-shadow: inset 20px 20px 60px #c2c2c2, 
+    inset -20px -20px 60px #ffffff;
     cursor: pointer;
 }

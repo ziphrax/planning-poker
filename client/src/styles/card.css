@@ -1,24 +1,21 @@
 .card {
     border:0;
     margin-top: 2.5vw;
-    background:#33658A;
-    color:#fafafa;
+    color:#333;
     padding: 4vw;
     font-size: 5vw;
-    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    background: #e4e4e4;
+    box-shadow:  20px 20px 60px #c2c2c2, 
+              -20px -20px 60px #ffffff;
     text-align: center;
     vertical-align: middle;
     width: 22vw;
-    border-radius: 1vw;
+    border-radius: 30vw;
 }
 
 .card:hover {    
-    background:#ddd;
+    box-shadow: inset 20px 20px 60px #c2c2c2, 
+              inset -20px -20px 60px #ffffff;
     color:#333;
-    -webkit-box-shadow: 0 0 0 1px #33658A;
-    -moz-box-shadow: 0 0 0 1px #33658A;
-    box-shadow: 0 0 0 1px #33658A;
     cursor: pointer;
 }

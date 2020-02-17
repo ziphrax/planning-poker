@@ -25,11 +25,7 @@ export default function({labels, title, data, color, backgroundColor}){
                 animation:false,
                 responsive: true,
                 legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Histogram'
+                    display:false
                 }
             }
         })
@@ -40,6 +36,8 @@ export default function({labels, title, data, color, backgroundColor}){
     }
 
     return (
-        <canvas className="results-pictograph" ref={chartRef} style={backGroundStyle}></canvas>
+        <div className="results-histogram-container">
+            <canvas className="results-histogram" ref={chartRef} style={backGroundStyle}></canvas>
+        </div>
     )
 }

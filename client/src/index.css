@@ -60,20 +60,17 @@ button {
               -20px -20px 60px #ffffff;
 }
 
-input.input-right, button.button-right{
-  border-radius:0 1vw 1vw 0; 
-}
-
-input.input-left, button.button-left{
-  border-radius: 1vw 0 0 1vw; 
-}
-
-input.input-center, button.button-center{
-  border-radius: 0;
+button:hover, .button-primary:hover {
+  box-shadow: inset 20px 20px 60px #c2c2c2, 
+              inset -20px -20px 60px #ffffff;
 }
 
 .root {
   height:100vh;
   width:100vw;
   display: flex;
+}
+
+.inline {
+  display: inline-block;
 }

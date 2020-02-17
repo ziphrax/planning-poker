@@ -128,8 +128,8 @@ function App() {
           <ResultsHistogram title="Results" 
                             labels={labels} 
                             data={roomToData(labels, currentRoom)} 
-                            color="#33658A" 
-                            backgroundColor="#fafafa"/>}
+                            color="#333" 
+                            backgroundColor="#e4e4e4"/>}
       </div>
       <div className="Footer">
         <SuiteLine />
