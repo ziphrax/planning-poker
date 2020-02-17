@@ -4,9 +4,6 @@
     text-align: center;
     vertical-align: middle;
     border-radius: 30vw;
-    background: #e4e4e4;
-    box-shadow:  20px 20px 60px #c2c2c2, 
-              -20px -20px 60px #ffffff;
 }
 
 .results-histogram {
@@ -15,7 +12,4 @@
     text-align: center;
     vertical-align: middle;
     border-radius: 30vw;
-    background: #e4e4e4;
-    box-shadow: inset 20px 20px 60px #c2c2c2, 
-                inset -20px -20px 60px #ffffff;
 }

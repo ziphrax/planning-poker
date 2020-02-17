@@ -37,7 +37,7 @@ export default function({labels, title, data, color, backgroundColor}){
 
     return (
         <div className="results-histogram-container">
-            <canvas className="results-histogram" ref={chartRef} style={backGroundStyle}></canvas>
+            <canvas className="results-histogram neumorphic-inset" ref={chartRef} style={backGroundStyle}></canvas>
         </div>
     )
 }

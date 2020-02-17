@@ -3,9 +3,6 @@
     margin-top: 2.5vw;
     color:#333;
     padding: 2vw;
-    background: #e4e4e4;
-    box-shadow:  20px 20px 60px #c2c2c2, 
-              -20px -20px 60px #ffffff;
     text-align: center;
     font-size: 40vw;
     vertical-align: middle;
@@ -16,7 +13,5 @@
 
 .selected-card:hover {    
     color:#333;
-    box-shadow: inset 20px 20px 60px #c2c2c2, 
-    inset -20px -20px 60px #ffffff;
     cursor: pointer;
 }
