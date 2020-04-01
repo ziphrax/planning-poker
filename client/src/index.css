@@ -11,6 +11,10 @@ body {
   color:#333;
 }
 
+.icon {
+  color: #55b9f3;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -1,15 +1,16 @@
-.results-histogram-container {
-    margin-top:4vh;
-    width:96vw;
+.results-histogram-container {    
+    width:75vw;
     text-align: center;
     vertical-align: middle;
     border-radius: 30vw;
+    padding:5vw;
 }
 
 .results-histogram {
     margin-top:4vh;
-    width:94vw;
+    width:89vw;
     text-align: center;
     vertical-align: middle;
-    border-radius: 30vw;
+    border-radius: 5vw;    
+    padding:5vw;
 }

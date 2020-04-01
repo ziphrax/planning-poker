@@ -1,5 +1,10 @@
-import React from 'react'
+import React from "react";
 
-export default function(){
-    return (<h2>&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts; &diams; &spades;</h2>        );
+export default function() {
+  return (
+    <h2 className="icon">
+      &hearts; &diams; &spades; &clubs;&hearts; &diams; &spades; &clubs;&hearts;
+      &diams; &spades; &clubs;&hearts;
+    </h2>
+  );
 }
