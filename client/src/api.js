@@ -80,5 +80,4 @@ export function ClearScores(roomId, body) {
       return response;
     })
     .catch(console.log);
-  /room/eotv / clear;
 }

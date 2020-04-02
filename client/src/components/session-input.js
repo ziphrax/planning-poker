@@ -23,6 +23,9 @@ const DisplaySession = ({ roomId, setRoomId, leaveRoom, clearScores }) => {
           &#11189;
         </i>{" "}
       </button>
+      <button className="button-primary" type="button" onClick={handleClear}>
+        Clear
+      </button>
     </div>
   );
 };
