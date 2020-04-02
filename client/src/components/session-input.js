@@ -1,10 +1,14 @@
 import React, { useState, isValidElement } from "react";
 import "../styles/session-input.css";
 
-const DisplaySession = ({ roomId, setRoomId, leaveRoom }) => {
+const DisplaySession = ({ roomId, setRoomId, leaveRoom, clearScores }) => {
   const handleLeave = e => {
     leaveRoom();
     setRoomId("");
+  };
+
+  const handleClear = e => {
+    clearScores();
   };
 
   return (
@@ -53,7 +57,8 @@ export default function({
   setSession,
   joinRoom,
   hostRoom,
-  leaveRoom
+  leaveRoom,
+  clearScores
 }) {
   const [roomId, setRoomId] = useState("");
 
@@ -74,6 +79,7 @@ export default function({
             roomId={session}
             setRoomId={setSession}
             leaveRoom={leaveRoom}
+            clearScore={clearScores}
           />
         )}
         {session === "" && (
